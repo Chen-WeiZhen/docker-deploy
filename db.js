@@ -6,17 +6,18 @@ const DB_USERNAME = 'root'
 const DB_PASSWORD = '123456'
 const DB_PORT = 33061
 
-/**get enviroment from docker-compose */
-console.log('process.env.BUILD_ENV', process.env.BUILD_ENV)
-console.log('process.env.DB_HOST', process.env.DB_HOST)
+/**get enviroment from docker-compose 
+ * process.env.DB_HOST
+ * if run in docker DB_HOST=db the same with docker container from docker-compose.yml
+*/
 const sequelize = new Sequelize(DB_DATABASE, DB_USERNAME, DB_PASSWORD, {
   port: DB_PORT,
-  host: 'db',
-  dialect: 'mysql', 
+  host: process.env.DB_HOST || DB_PORT,
+  dialect: 'mysql',
   pool: {
     max: 5,
-    min: 0, 
-    idle: 10000, 
+    min: 0,
+    idle: 10000,
   },
 })
 
@@ -24,7 +25,7 @@ sequelize
   .authenticate()
   .then(() => {
     console.log('******Connection has been established successfully.********')
-    // process.exit() 
+    // process.exit()
   })
   .catch((err) => {
     console.error(
