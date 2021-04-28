@@ -1,6 +1,6 @@
 FROM node
 
-WORKDIR /usr/node/app
+WORKDIR /usr/node
 
 COPY package*.json ./
 
@@ -10,4 +10,3 @@ COPY . .
 # RUN chmod +x wait-for.sh
 
 EXPOSE 3000
-ENV BUILD_ENV=docker
