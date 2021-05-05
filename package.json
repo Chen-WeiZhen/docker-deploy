@@ -26,6 +26,12 @@
     "sequelize": "^6.6.2"
   },
   "devDependencies": {
+    "cz-conventional-changelog": "^3.3.0",
     "nodemon": "^1.19.1"
+  },
+  "config": {
+    "commitizen": {
+      "path": "./node_modules/cz-conventional-changelog"
+    }
   }
 }

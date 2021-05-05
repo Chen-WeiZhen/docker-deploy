@@ -2,20 +2,24 @@ version: '3.9'
 services:
   db:
     image: mysql
+    command: --default-authentication-plugin=mysql_native_password
     container_name: db
     volumes:
       - ./mysql/data:/var/lib/mysql
       - ./mysql/my.cnf:/etc/my.cnf
-    # env_file: .env
+      - ./mysql-dump:/docker-entrypoint-initdb.d
+    env_file: .env
     restart: always
     environment:
-      - MYSQL_USER=test
-      - MYSQL_PASSWORD=123456 
-      - MYSQL_ROOT_PASSWORD=123456
-      - MYSQL_DATABASE=fendou
+      TZ: Asia/Shanghai
+      MYSQL_USER: ${MYSQL_USER}
+      MYSQL_PASSWORD: ${MYSQL_PASSWORD}
+      MYSQL_ROOT_PASSWORD: ${MYSQL_ROOT_PASSWORD}
+      MYSQL_DATABASE: ${MYSQL_DATABASE}
     command:
       --character-set-server=utf8mb4 --collation-server=utf8mb4_unicode_ci
       --default-authentication-plugin=mysql_native_password
+      --init-file /docker-entrypoint-initdb.d/init.sql
     ports:
       - '33061:3306'
     networks:
@@ -26,14 +30,14 @@ services:
     build: .
     image: node
     container_name: node-end
-    restart: always 
+    restart: always
     volumes:
       - .:/usr/node
     environment:
       - DB_HOST=db
     ports:
       - 4000:3000
-    depends_on: 
+    depends_on:
       - db
     networks:
       - app-network

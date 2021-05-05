@@ -5,11 +5,6 @@ const DB_DATABASE = 'fendou'
 const DB_USERNAME = 'root'
 const DB_PASSWORD = '123456'
 const DB_PORT = 33061
-
-
-console.log('process.env.BUILD_ENV',process.env.BUILD_ENV)
-
-console.log('process.env.DB_HOST', process.env.DB_HOST)
 /**get enviroment from docker-compose 
  * process.env.DB_HOST
  * if run in docker DB_HOST=db the same with docker container from docker-compose.yml
