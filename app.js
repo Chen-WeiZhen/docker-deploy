@@ -47,9 +47,6 @@ app.use(async (ctx, next) => {
 app.use(index.routes(), index.allowedMethods())
 app.use(users.routes(), users.allowedMethods())
 
-console.log('process.env.BUILD_ENV',process.env.BUILD_ENV)
-
-console.log('process.env.DB_HOST', process.env.DB_HOST)
 // error-handling
 app.on('error', (err, ctx) => {
   console.error('server error', err, ctx)

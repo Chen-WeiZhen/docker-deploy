@@ -6,7 +6,7 @@ services:
     volumes:
       - ./mysql/data:/var/lib/mysql
       - ./mysql/my.cnf:/etc/my.cnf
-    env_file: .env
+    # env_file: .env
     restart: always
     environment:
       - MYSQL_USER=test
@@ -22,10 +22,10 @@ services:
       - app-network
     security_opt:
       - seccomp:unconfined
-  node3:
+  node-end:
     build: .
     image: node
-    container_name: node3
+    container_name: node-end
     restart: always 
     volumes:
       - .:/usr/node
@@ -41,5 +41,4 @@ services:
 
 networks:
   app-network:
-    name: kkk-project
     driver: bridge
